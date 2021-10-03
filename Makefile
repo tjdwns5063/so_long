@@ -2,6 +2,7 @@ NAME = so_long
 
 CC = gcc
 CFLAGS = -Wall -Wextra
+INCLUDE = -I./include -I./libft
 LINK = -L$(MINI_LIB_DIR) -l$(MINI_LIB_NAME) -framework OpenGL -framework Appkit -L$(LIB_FT_DIR) -l$(LIB_FT_NAME)
 
 MINI_LIB_DIR = ./minilibx_opengl/
@@ -12,16 +13,18 @@ LIB_FT_DIR = ./libft/
 LIB_FT_NAME = ft
 LIB_FT = $(LIB_FT_DIR)lib$(LIB_FT_NAME).a
 
-SRC = main.c get_next_line_utils.c get_next_line.c
+SRC = ./src/so_long.c ./src/check_map.c ./src/load_map.c\
+	./src/util.c ./src/draw_map.c ./src/set_player.c\
+	./src/draw_util.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(MINI_LIB) $(OBJ)
-	$(CC) $(CFLAGS) $(LINK) $(OBJ) -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) $(LINK) $(OBJ) -o $@
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(MINI_LIB):
 	make -C $(MINI_LIB_DIR) all

@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:05:01 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/02 20:08:24 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/03 13:09:28 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,22 +117,22 @@ static int	check_surrounded_wall(t_map *map, int fd)
 	return (1);
 }
 
-int	check_map(t_map *map, char *map_name)
+void	check_map(t_game *game, char *map_name)
 {
-	int	fd;
+	int		fd;
 
-	if (check_name_extension(map_name, map) == 0)
-		return (0);
+	if (check_name_extension(map_name, &game->map) == 0)
+		exit(0);
 	fd = open_map(map_name);
-	if (check_map_is_rec(map, fd) == 0)
-		return (0);
+	if (check_map_is_rec(&game->map, fd) == 0)
+		exit(0);
 	close(fd);
 	fd = open_map(map_name);
-	if (check_element(map, fd) == 0 || check_surrounded_wall(map, fd) == 0)
+	if (check_element(&game->map, fd) == 0 || check_surrounded_wall(&game->map, fd) == 0)
 	{
 		printf("Map have Invalid element!\n");
-		return (0);
+		exit(0);
 	}
 	close(fd);
-	return (1);
+	load_map(game);
 }

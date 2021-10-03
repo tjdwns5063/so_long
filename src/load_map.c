@@ -6,24 +6,11 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:59:25 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/02 20:08:25 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/03 17:37:52 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	open_map(char *map_name)
-{
-	int	fd;
-
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Cannot Open This File!\n");
-		exit(0);
-	}
-	return (fd);
-}
 
 static int	malloc_map(t_map *map)
 {
@@ -76,14 +63,10 @@ static void	fill_map(t_map *map)
 	}
 }
 
-int	load_map(t_map *map)
+void	load_map(t_game *game)
 {
-	char	buf;
-	int		row_idx;
-	int		col_idx;
-
-	if (!malloc_map(map))
-		return (0);
-	fill_map(map);
-	return (1);
+	if (!malloc_map(&game->map))
+		exit(0);
+	fill_map(&game->map);
+	set_player(game);
 }
