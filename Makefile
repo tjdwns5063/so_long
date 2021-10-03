@@ -14,8 +14,7 @@ LIB_FT_NAME = ft
 LIB_FT = $(LIB_FT_DIR)lib$(LIB_FT_NAME).a
 
 SRC = ./src/so_long.c ./src/check_map.c ./src/load_map.c\
-	./src/util.c ./src/draw_map.c ./src/set_player.c\
-	./src/draw_util.c
+	./src/util.c ./src/set_player.c ./src/draw_util.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

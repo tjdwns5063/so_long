@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:58:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/03 17:40:36 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/03 19:17:54 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct	s_game
 
 void	check_map(t_game *game, char *map_name);
 void	load_map(t_game *game);
-void    draw_map(t_game *game);
 void	clear_map(t_map *map);
 void	set_player(t_game *game);
 int		ft_move(t_game *game);
