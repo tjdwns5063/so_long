@@ -1,72 +1,78 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   load_map.c                                         :+:      :+:    :+:   */
+/*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/02 13:59:25 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/03 17:37:52 by seongjki         ###   ########.fr       */
+/*   Created: 2021/10/02 13:05:01 by seongjki          #+#    #+#             */
+/*   Updated: 2021/10/06 18:56:41 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	malloc_map(t_map *map)
+static int	get_row(t_map *map)
 {
-	int	idx;
+	int		cnt;
+	int		fd;
+	char	*line;
+
+	fd = open_map(map->map_name);
+	cnt = 0;
+	while (get_next_line(fd, &line) > 0)
+	{
+		cnt++;
+		free(line);
+	}
+	free(line);
+	close(fd);
+	return (cnt);
+}
+
+static int	make_map(t_map *map)
+{
+	int		idx;
+	int		fd;
+	char	*line;
 
 	idx = 0;
+	fd = open_map(map->map_name);
+	map->row = get_row(map);
 	map->map = (char **)malloc(sizeof(char *) * (map->row + 1));
 	if (!map->map)
 	{
 		clear_map(map);
 		printf("Malloc Error!\n");
-		return (0);
+		exit(0);
 	}
 	map->map[map->row] = 0;
 	while (idx < map->row)
 	{
-		map->map[idx] = (char *)malloc(sizeof(char) * (map->col + 1));
-		if (!map->map[idx])
-		{
-			clear_map(map);
-			printf("Malloc Error!\n");
-			return (0);
-		}
+		get_next_line(fd, &line);
+		map->map[idx] = line;
 		idx++;
 	}
+	map->col = ft_strlen(map->map[0]);
+	close(fd);
 	return (1);
 }
 
-static void	fill_map(t_map *map)
+void	load_map(t_game *game, char *map_name)
 {
-	int		fd;
-	int		row_idx;
-	int		col_idx;
-	char	buf;
-
-	fd = open_map(map->map_name);
-	row_idx = 0;
-	col_idx = 0;
-	while (read(fd, &buf, 1) == 1)
+	init_map(&game->map);
+	check_name_extension(map_name, &game->map);
+	game->map.map_name = map_name;
+	make_map(&game->map);
+	for (int i = 0; i < game->map.row; i++)
 	{
-		map->map[row_idx][col_idx] = buf;
-		if (buf == '\n')
+		for (int j = 0; j < game->map.col; j++)
 		{
-			map->map[row_idx][col_idx] = '\0';
-			col_idx = 0;
-			row_idx++;
+			printf("%c", game->map.map[i][j]);
 		}
-		else
-			col_idx++;
+		printf("\n");
 	}
-}
-
-void	load_map(t_game *game)
-{
-	if (!malloc_map(&game->map))
-		exit(0);
-	fill_map(&game->map);
-	set_player(game);
+	check_map_is_rec(&game->map);
+	check_element(&game->map);
+	check_surrounded_wall(&game->map);
 }

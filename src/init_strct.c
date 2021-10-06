@@ -1,39 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.c                                             :+:      :+:    :+:   */
+/*   init_strct.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/02 15:21:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/06 18:56:17 by seongjki         ###   ########.fr       */
+/*   Created: 2021/10/06 18:04:34 by seongjki          #+#    #+#             */
+/*   Updated: 2021/10/06 18:43:42 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	open_map(char *map_name)
+static void	init_img(t_img *img)
 {
-	int	fd;
-
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error!\nCannot Open This File!\n");
-		exit(0);
-	}
-	return (fd);
+	img->width = 0;
+	img->height = 0;
 }
 
-void	clear_map(t_map *map)
+void	init_map(t_map *map)
 {
-	int	idx;
+	map->row = 0;
+	map->col = 0;
+	map->have_p = 0;
+	map->have_e = 0;
+	map->have_c = 0;
+	map->have_z = 0;
+	map->have_o = 0;
+}
 
-	idx = 0;
-	while (idx < map->row)
-	{
-		free(map->map[idx]);
-		idx++;
-	}
-	free(map->map);
+static void	init_player(t_player *player)
+{
+	player->x = 0;
+	player->y = 0;
+	player->up = 0;
+	player->left = 0;
+	player->right = 0;
+	player->down = 0;
+}
+
+void	init_game(t_game *game)
+{
+	game->mlx = mlx_init();
 }

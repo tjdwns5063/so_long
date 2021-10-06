@@ -6,133 +6,73 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:05:01 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/03 13:09:28 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:53:12 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	check_name_extension(char *map_name, t_map *map)
+static int	get_row(t_map *map)
 {
 	int		cnt;
-	char	*name_ptr;
-	char	*extension;
-
-	cnt = 4;
-	name_ptr = map_name;
-	extension = ".ber";
-	while (*name_ptr)
-		name_ptr++;
-	while (cnt--)
-		name_ptr--;
-	if (ft_strncmp(name_ptr, extension, 4) == 0)
-	{
-		map->map_name = map_name;
-		return (1);
-	}
-	printf("Invalid File Extension!\n");
-	return (0);
-}
-
-static int	check_map_is_rec(t_map *map, int fd)
-{
-	int		tmp_col_idx;
-	char	c;
-
-	map->row = 0;
-	map->col = 0;
-	tmp_col_idx = 0;
-	while (read(fd, &c, 1) == 1)
-	{
-		if (c == '\n')
-		{
-			map->row++;
-			if (map->row > 1 && map->col != tmp_col_idx)
-			{
-				printf("Map is not Rectangle\n");
-				return (0);
-			}
-			map->col = tmp_col_idx;
-			tmp_col_idx = 0;
-		}
-		else
-			tmp_col_idx++;
-	}
-	return (1);
-}
-
-static int	check_element(t_map *map, int fd)
-{
-	char	buf;
-	int		have_e;
-	int		have_c;
-	int		have_p;
-
-	have_e = 0;
-	have_c = 0;
-	have_p = 0;
-	while (read(fd, &buf, 1) == 1)
-	{
-		if (buf == 'E')
-			have_e = 1;
-		else if (buf == 'P')
-			have_p = 1;
-		else if (buf == 'C')
-			have_c = 1;
-		if (buf != '0' && buf != '1' && buf != 'E'\
-		&& buf != 'P' && buf != 'C' && buf != '\n')
-			return (0);
-	}
-	if (have_e == 1 && have_p == 1 && have_c == 1)
-		return (1);
-	return (0);
-}
-
-static int	check_surrounded_wall(t_map *map, int fd)
-{
-	int		row_idx;
-	int		col_idx;
-	char	buf;
-
-	row_idx = 0;
-	col_idx = 0;
-	fd = open_map(map->map_name);
-	while (read(fd, &buf, 1))
-	{
-		if (buf == '\n')
-		{
-			row_idx++;
-			col_idx = 0;
-		}
-		else
-		{
-			if ((row_idx == 0 && buf != '1') || \
-			(row_idx == map->row - 1 && buf != '1') || \
-			(col_idx == 0 && buf != '1') || \
-			(col_idx == map->col - 1 && buf != '1'))
-				return (0);
-			col_idx++;
-		}
-	}
-	return (1);
-}
-
-void	check_map(t_game *game, char *map_name)
-{
 	int		fd;
+	char	*line;
 
-	if (check_name_extension(map_name, &game->map) == 0)
-		exit(0);
-	fd = open_map(map_name);
-	if (check_map_is_rec(&game->map, fd) == 0)
-		exit(0);
-	close(fd);
-	fd = open_map(map_name);
-	if (check_element(&game->map, fd) == 0 || check_surrounded_wall(&game->map, fd) == 0)
+	fd = open_map(map->map_name);
+	cnt = 0;
+	while (get_next_line(fd, &line) > 0)
 	{
-		printf("Map have Invalid element!\n");
+		cnt++;
+		free(line);
+	}
+	free(line);
+	close(fd);
+	return (cnt);
+}
+
+static int	make_map(t_map *map)
+{
+	int		idx;
+	int		fd;
+	char	*line;
+
+	idx = 0;
+	fd = open_map(map->map_name);
+	map->row = get_row(map);
+	map->map = (char **)malloc(sizeof(char *) * (map->row + 1));
+	if (!map->map)
+	{
+		clear_map(map);
+		printf("Malloc Error!\n");
 		exit(0);
 	}
+	map->map[map->row] = 0;
+	while (idx < map->row)
+	{
+		get_next_line(fd, &line);
+		map->map[idx] = line;
+		idx++;
+	}
+	map->col = ft_strlen(map->map[0]);
 	close(fd);
-	load_map(game);
+	return (1);
+}
+
+void	load_map(t_game *game, char *map_name)
+{
+	init_map(&game->map);
+	check_name_extension(map_name, &game->map);
+	game->map.map_name = map_name;
+	make_map(&game->map);
+	for (int i = 0; i < game->map.row; i++)
+	{
+		for (int j = 0; j < game->map.col; j++)
+		{
+			printf("%c", game->map.map[i][j]);
+		}
+		printf("\n");
+	}
+	check_map_is_rec(&game->map);
+	check_element(&game->map);
+	check_surrounded_wall(&game->map);
 }
