@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:58:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/06 18:53:30 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:43:08 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,21 @@ typedef struct	s_map
 typedef struct	s_player
 {
 	int		x;
+	int		ex_x;
 	int		y;
+	int		ex_y;
+	char	*ex_img;
 	int		up;
 	int		down;
 	int		left;
 	int		right;
 }				t_player;
+
+typedef struct  s_collect
+{
+    int     cnt;
+    int     all_collect_flag;
+}               t_collect;
 
 typedef struct	s_game
 {
@@ -67,6 +76,7 @@ typedef struct	s_game
 	t_img		img;
 	t_map		map;
 	t_player	player;
+	t_collect	collect;
 }				t_game;
 
 int		check_name_extension(char *map_name, t_map *map);
@@ -75,11 +85,17 @@ int		check_element(t_map *map);
 int		check_surrounded_wall(t_map *map);
 void	load_map(t_game *game, char *map_name);
 void	clear_map(t_map *map);
-void	set_player(t_game *game);
 int		ft_move(t_game *game);
+int		ft_iter_draw(t_game *game);
 int		ft_draw(t_game *game);
+int		ft_key_press(int keycode, t_game *game);
+void	set_player_location(t_game *game);
 int		open_map(char *map_name);
 void	init_game(t_game *game);
 void	init_map(t_map *map);
+void	init_player(t_player *player);
+void	ft_cnt_collectible(t_game *game);
+void	ft_get_collect(t_game *game);
+void	ft_escape(t_game *game);
 
 #endif

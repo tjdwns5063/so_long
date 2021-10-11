@@ -6,16 +6,16 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 18:04:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/06 18:43:42 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:10:57 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static void	init_img(t_img *img)
+static void	init_collect(t_collect *collect)
 {
-	img->width = 0;
-	img->height = 0;
+	collect->cnt = 0;
+	collect->all_collect_flag = 0;
 }
 
 void	init_map(t_map *map)
@@ -29,10 +29,8 @@ void	init_map(t_map *map)
 	map->have_o = 0;
 }
 
-static void	init_player(t_player *player)
+void	init_player(t_player *player)
 {
-	player->x = 0;
-	player->y = 0;
 	player->up = 0;
 	player->left = 0;
 	player->right = 0;
@@ -42,4 +40,6 @@ static void	init_player(t_player *player)
 void	init_game(t_game *game)
 {
 	game->mlx = mlx_init();
+	game->win = mlx_new_window(game->mlx, game->map.col * SIZE, game->map.row * SIZE, "so_long");
+	init_collect(&game->collect);
 }
