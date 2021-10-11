@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:24:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/11 16:44:53 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/11 19:53:39 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,29 @@ int		ft_move(t_game *game)
 	game->player.ex_x = game->player.x;
 	game->player.ex_y = game->player.y;
 	if (game->player.left == 1 && game->map.map[game->player.y][game->player.x - 1] != '1')
+	{
 		game->player.x -= 1;
+		game->walk += 1;
+		printf("Walk Count: %d\n", game->walk);
+	}
 	if (game->player.right == 1 && game->map.map[game->player.y][game->player.x + 1] != '1')
+	{
 		game->player.x += 1;
+		game->walk += 1;
+		printf("Walk Count: %d\n", game->walk);
+	}
 	if (game->player.up == 1 && game->map.map[game->player.y - 1][game->player.x] != '1')
+	{
 		game->player.y -= 1;
+		game->walk += 1;
+		printf("Walk Count: %d\n", game->walk);
+	}
 	if (game->player.down == 1 && game->map.map[game->player.y + 1][game->player.x] != '1')
+	{
 		game->player.y += 1;
+		game->walk += 1;
+		printf("Walk Count: %d\n", game->walk);
+	}
 	return (0);
 }
 

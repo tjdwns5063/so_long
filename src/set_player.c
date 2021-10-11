@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 14:52:06 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/11 14:51:26 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/11 19:35:13 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ int		ft_key_press(int keycode, t_game *game)
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(game->mlx, game->win);
+		clear_map(&game->map);
 		exit(0);
 	}
-	if (keycode == UP)
+	if (keycode == UP || keycode == W)
 		game->player.up = 1;
-	else if (keycode == DOWN)
+	if (keycode == DOWN || keycode == S)
 		game->player.down = 1;
-	else if (keycode == RIGHT)
+	if (keycode == RIGHT || keycode == D)
 		game->player.right = 1;
-	else if (keycode == LEFT)
+	if (keycode == LEFT || keycode == A)
 		game->player.left = 1;
 	return (0);
 }

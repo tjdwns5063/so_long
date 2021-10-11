@@ -6,20 +6,25 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:58:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/11 16:43:08 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/11 19:52:11 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # ifndef SO_LONG_H
 #  define SO_LONG_H
+
 #  define SIZE			64
+#  define W				13
+#  define S				1
+#  define D				2
+#  define A				0
 #  define UP			126
 #  define DOWN			125
 #  define RIGHT			124
 #  define LEFT			123
 #  define ESC			53
-#  define KEYPRESS		2
-#  define KEYRELEASE	3
+#  define RED_CROSS		17
+#  define KEY_PRESS		2
 
 # include <unistd.h>
 # include <stdio.h>
@@ -73,6 +78,7 @@ typedef struct	s_game
 {
 	void		*mlx;
 	void		*win;
+	int			walk;
 	t_img		img;
 	t_map		map;
 	t_player	player;

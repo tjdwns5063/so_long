@@ -13,7 +13,7 @@ LIB_FT_DIR = ./libft/
 LIB_FT_NAME = ft
 LIB_FT = $(LIB_FT_DIR)lib$(LIB_FT_NAME).a
 
-SRC = ./src/so_long.c ./src/util.c ./src/load_map.c\
+SRC = ./src/so_long.c ./src/map_util.c ./src/load_map.c\
 	./src/set_player.c ./src/draw_util.c ./src/check_map_func.c\
 	./src/get_next_line.c ./src/get_next_line_utils.c\
 	./src/init_strct.c ./src/collect_util.c
