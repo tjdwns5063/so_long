@@ -6,13 +6,13 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 14:52:06 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/11 19:35:13 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 12:49:31 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int		ft_key_press(int keycode, t_game *game)
+int	ft_key_press(int keycode, t_game *game)
 {
 	if (keycode == ESC)
 	{
@@ -46,8 +46,9 @@ void	set_player_location(t_game *game)
 			{
 				game->player.x = x;
 				game->player.y = y;
-				game->player.ex_x = x;
-				game->player.ex_y = y;
+				game->player.ex_x = game->player.x;
+				game->player.ex_y = game->player.y;
+				return ;
 			}
 			x++;
 		}

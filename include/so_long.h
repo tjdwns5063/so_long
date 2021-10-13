@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:58:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/11 19:52:11 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 11:53:48 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,9 @@ int		open_map(char *map_name);
 void	init_game(t_game *game);
 void	init_map(t_map *map);
 void	init_player(t_player *player);
+void	ft_mlx_new_window(t_game *game, int x, int y);
+void	ft_mlx_xpm_file_to_image(t_game *game, char *path);
+void	ft_mlx_put_image_to_window(t_game *game, int x, int y);
 void	ft_cnt_collectible(t_game *game);
 void	ft_get_collect(t_game *game);
 void	ft_escape(t_game *game);

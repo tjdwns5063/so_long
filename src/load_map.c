@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:05:01 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/11 19:26:21 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 16:26:34 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,24 @@ static int	make_map(t_map *map)
 
 void	load_map(t_game *game, char *map_name)
 {
+	int	x;
+	int	y;
+
 	init_map(&game->map);
 	check_name_extension(map_name, &game->map);
 	game->map.map_name = map_name;
 	make_map(&game->map);
-	for (int i = 0; i < game->map.row; i++)
+	y = 0;
+	while (game->map.map[y])
 	{
-		for (int j = 0; j < game->map.col; j++)
+		x = 0;
+		while (game->map.map[y][x])
 		{
-			printf("%c", game->map.map[i][j]);
+			printf("%c", game->map.map[y][x]);
+			x++;
 		}
 		printf("\n");
+		y++;
 	}
 	check_map_is_rec(&game->map);
 	check_element(&game->map);

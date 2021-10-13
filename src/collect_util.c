@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:04:49 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/11 16:42:37 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 16:35:12 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_cnt_collectible(t_game *game)
 {
-	int x;
+	int	x;
 	int	y;
 
 	y = 0;

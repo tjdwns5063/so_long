@@ -6,13 +6,13 @@
 /*   By: seongjki <seongjk@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/23 15:48:42 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/06 17:13:53 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 10:37:11 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		make_line(char **str, char **line)
+static int	make_line(char **str, char **line)
 {
 	int		n_idx;
 	char	*tmp;
@@ -26,7 +26,7 @@ static int		make_line(char **str, char **line)
 	return (1);
 }
 
-static int		decide_ret(int ret, char **str, char **line)
+static int	decide_ret(int ret, char **str, char **line)
 {
 	if (ret == -1)
 		return (-1);
@@ -46,7 +46,7 @@ static int		decide_ret(int ret, char **str, char **line)
 	return (0);
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	*str;
 	char		*buffer;

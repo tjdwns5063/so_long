@@ -1,39 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.c                                             :+:      :+:    :+:   */
+/*   mlx_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/02 15:21:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/13 10:35:18 by seongjki         ###   ########.fr       */
+/*   Created: 2021/10/13 11:38:51 by seongjki          #+#    #+#             */
+/*   Updated: 2021/10/13 13:22:46 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	open_map(char *map_name)
+void	ft_mlx_new_window(t_game *game, int x, int y)
 {
-	int	fd;
-
-	fd = open(map_name, O_RDONLY);
-	if (fd < 0)
-	{
-		printf("Error!\nCannot Open This File!\n");
-		exit(0);
-	}
-	return (fd);
+	game->win = mlx_new_window(game->mlx, x, y, "so_long");
 }
 
-void	clear_map(t_map *map)
+void	ft_mlx_xpm_file_to_image(t_game *game, char *path)
 {
-	int	idx;
+	game->img.img = \
+mlx_xpm_file_to_image(game->mlx, path, &game->img.width, &game->img.height);
+}
 
-	idx = 0;
-	while (idx < map->row)
-	{
-		free(map->map[idx]);
-		idx++;
-	}
-	free(map->map);
+void	ft_mlx_put_image_to_window(t_game *game, int x, int y)
+{
+	mlx_put_image_to_window(\
+	game->mlx, game->win, game->img.img, x * SIZE, y * SIZE);
 }

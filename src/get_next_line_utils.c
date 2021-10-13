@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.kr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/21 15:37:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/06 16:34:48 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 10:37:33 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	gnl_strlen(char const *str)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	while (str[len])
@@ -22,7 +22,7 @@ size_t	gnl_strlen(char const *str)
 	return (len);
 }
 
-int		str_in_newline(char *str)
+int	str_in_newline(char *str)
 {
 	int		i;
 
