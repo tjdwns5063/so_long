@@ -1,7 +1,7 @@
 NAME = so_long
 
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I./include -I./libft
 LINK = -L$(MINI_LIB_DIR) -l$(MINI_LIB_NAME) -framework OpenGL -framework Appkit -L$(LIB_FT_DIR) -l$(LIB_FT_NAME)
 
@@ -13,11 +13,22 @@ LIB_FT_DIR = ./libft/
 LIB_FT_NAME = ft
 LIB_FT = $(LIB_FT_DIR)lib$(LIB_FT_NAME).a
 
-SRC = ./src/so_long.c ./src/map_util.c ./src/load_map.c\
-	./src/set_player.c ./src/draw_util.c ./src/check_map_func.c\
-	./src/get_next_line.c ./src/get_next_line_utils.c\
-	./src/init_strct.c ./src/collect_util.c ./src/mlx_util.c
+SRC_DIR = ./src/
+SRC_NAME = so_long.c map_util.c load_map.c\
+	set_player.c draw_util.c check_map_func.c\
+	get_next_line.c get_next_line_utils.c\
+	init_strct.c collect_util.c mlx_util.c
+SRC = $(addprefix $(SRC_DIR),$(SRC_NAME))
 OBJ = $(SRC:.c=.o)
+
+BONUS = so_long_bonus
+BONUS_SRC_DIR = ./src_bonus/
+BONUS_SRC_NAME = so_long.c map_util.c load_map.c\
+	set_player.c draw_util.c check_map_func.c\
+	get_next_line.c get_next_line_utils.c\
+	init_strct.c collect_util.c mlx_util.c
+BONUS_SRC = $(addprefix $(BONUS_SRC_DIR),$(BONUS_SRC_NAME))
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
 all: $(NAME)
 
@@ -27,16 +38,23 @@ $(NAME): $(MINI_LIB) $(OBJ)
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
+bonus: $(BONUS)
+
+$(BONUS): $(MINI_LIB) $(BONUS_OBJ)
+	$(CC) $(CFLAGS) $(INCLUDE) $(LINK) $(BONUS_OBJ) -o $(BONUS)
+
 $(MINI_LIB):
 	make -C $(MINI_LIB_DIR) all
 	make -C $(LIB_FT_DIR) all
 
 clean:
 	rm -f $(OBJ)
+	rm -f $(BONUS_OBJ)
 	make -C $(MINI_LIB_DIR) clean
 	make -C $(LIB_FT_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
+	rm -f $(BONUS)
 
 re: fclean all

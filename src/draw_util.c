@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:24:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/13 16:35:15 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 16:43:28 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	set_img(t_game *game, char spcifir)
 	else if (spcifir == 'E')
 		game->img.path = "./asset/escape.xpm";
 	else if (spcifir == 'C')
-		game->img.path = "./asset/collect.xpm";
+		game->img.path = "./asset/apple_0.xpm";
 	else
 		game->img.path = "./asset/grass.xpm";
 	ft_mlx_xpm_file_to_image(game, game->img.path);

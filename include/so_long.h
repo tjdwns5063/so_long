@@ -6,25 +6,24 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:58:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/13 11:53:48 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/13 16:52:30 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef SO_LONG_H
-#  define SO_LONG_H
-
-#  define SIZE			64
-#  define W				13
-#  define S				1
-#  define D				2
-#  define A				0
-#  define UP			126
-#  define DOWN			125
-#  define RIGHT			124
-#  define LEFT			123
-#  define ESC			53
-#  define RED_CROSS		17
-#  define KEY_PRESS		2
+#ifndef SO_LONG_H
+# define SO_LONG_H
+# define SIZE			64
+# define W				13
+# define S				1
+# define D				2
+# define A				0
+# define UP				126
+# define DOWN			125
+# define RIGHT			124
+# define LEFT			123
+# define ESC			53
+# define RED_CROSS		17
+# define KEY_PRESS		2
 
 # include <unistd.h>
 # include <stdio.h>
@@ -34,7 +33,7 @@
 # include "get_next_line.h"
 # include "libft.h"
 
-typedef struct	s_img
+typedef struct s_img
 {
 	int		width;
 	int		height;
@@ -42,7 +41,7 @@ typedef struct	s_img
 	void	*img;
 }				t_img;
 
-typedef struct	s_map
+typedef struct s_map
 {
 	char	*map_name;
 	int		row;
@@ -55,7 +54,7 @@ typedef struct	s_map
 	int		have_o;
 }				t_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	int		x;
 	int		ex_x;
@@ -68,13 +67,13 @@ typedef struct	s_player
 	int		right;
 }				t_player;
 
-typedef struct  s_collect
+typedef struct s_collect
 {
-    int     cnt;
-    int     all_collect_flag;
-}               t_collect;
+	int		cnt;
+	int		all_collect_flag;
+}				t_collect;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
