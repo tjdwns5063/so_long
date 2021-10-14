@@ -3,7 +3,7 @@ NAME = so_long
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 INCLUDE = -I./include -I./libft
-LINK = -L$(MINI_LIB_DIR) -l$(MINI_LIB_NAME) -framework OpenGL -framework Appkit -L$(LIB_FT_DIR) -l$(LIB_FT_NAME)
+LINK = -L$(MINI_LIB_DIR) -l$(MINI_LIB_NAME) -framework OpenGL -framework AppKit -L$(LIB_FT_DIR) -l$(LIB_FT_NAME)
 
 MINI_LIB_DIR = ./minilibx_opengl/
 MINI_LIB_NAME = mlx

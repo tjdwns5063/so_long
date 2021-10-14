@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 12:42:02 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 15:11:39 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/14 21:14:59 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static int	loop_set(t_game *game)
 {
 	ft_move(game);
 	ft_draw_player(game);
-	ft_get_collect(game);
 	ft_iter_collect(game);
+	ft_get_collect(game);
 	ft_escape(game);
 	init_player(&game->player);
 	return (0);

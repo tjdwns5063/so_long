@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 18:04:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/13 16:43:30 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/14 15:50:57 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	init_game(t_game *game)
 	game->mlx = mlx_init();
 	ft_mlx_new_window(game, map.col * SIZE, map.row * SIZE);
 	game->walk = 0;
+	init_player(&game->player);
 	init_collect(&game->collect);
 }

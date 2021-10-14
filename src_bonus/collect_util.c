@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:04:49 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 15:02:51 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/14 21:15:00 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	ft_iter_collect(t_game *game)
 {
 	int	x_pos;
 	int	y_pos;
-	static t_collect	*head;
+	t_collect	*head;
+	static int	cnt;
 	static t_collect	*lst;
 
 	if (!game->collect)
@@ -48,10 +49,12 @@ int	ft_iter_collect(t_game *game)
 		lst = head;
 	x_pos = lst->x;
 	y_pos = lst->y;
+	printf("x: %d y: %d next: %p\n", lst->x, lst->y, lst->next);
 	ft_draw_sprite(game, x_pos, y_pos);
 	lst = lst->next;
-	if (!lst)
-		lst = head;
+	cnt++;
+	if (cnt >= so_lstsize(head))
+		cnt = 0;
 	return (0);
 }
 
@@ -59,19 +62,14 @@ void	ft_get_collect(t_game *game)
 {
 	t_collect *tmp;
 
+	if (!game->collect)
+		return ;
 	if (game->map.map[game->player.y][game->player.x] == 'C')
 	{
-		tmp = game->collect;
-		while (tmp)
-		{
-			if (game->player.y == tmp->y && game->player.x == tmp->x)
-			{
-				so_clear(&game->collect, tmp);
-				game->collect_cnt--;
-				break ;
-			}
-			tmp = tmp->next;
-		}
+		game->map.map[game->player.y][game->player.x] = 'G';
+		tmp = so_lstfind(&game->collect, game->player.x, game->player.y);
+		so_clear(&game->collect, tmp);
+		game->collect_cnt--;
 	}
 	if (game->collect_cnt == 0)
 		game->all_collect_flag = 1;

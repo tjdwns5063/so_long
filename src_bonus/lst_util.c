@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:36:01 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 15:02:03 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/14 21:14:58 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ t_collect	*so_lstfind(t_collect **lst, int x, int y)
 		tmp = tmp->next;
 	}
 	new = so_lstnew(x, y);
+	if (!new)
+		return (0);
 	new->next = *lst;
 	*lst = new;
 	return (new);
@@ -54,7 +56,7 @@ void	so_clear(t_collect **lst, t_collect *target)
 		free(target);
 		return ;
 	}
-	while (current->next->x != target->x || current->next->y != target->y)
+	while (!(current->next->x == target->x && current->next->y == target->y))
 		current = current->next;
 	current->next = target->next;
 	free(target);

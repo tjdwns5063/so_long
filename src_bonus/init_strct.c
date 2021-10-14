@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 18:04:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 13:43:15 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/14 18:55:11 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ void	init_game(t_game *game)
 	game->collect_cnt = 0;
 	game->walk = 0;
 	game->all_collect_flag = 0;
-	game->collect_cnt = 0;
+	init_player(&game->player);
 	init_sprite(&game->sprite);
 }
