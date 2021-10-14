@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:24:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/13 19:51:27 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/14 14:49:36 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,17 @@ int	ft_draw(t_game *game)
 	return (0);
 }
 
-int	ft_draw_sprite(t_game *game)
+int	ft_draw_sprite(t_game *game, int x, int y)
 {
-	int	x;
-	int	y;
-	int	idx;
-	int s_idx;
+	static int	idx;
 
-	idx = 0;
-	while (idx < game->collect.cnt)
-	{
-		s_idx = 0;
-		x = game->collect.location[idx][1];
-		y = game->collect.location[idx][0];
-		while (s_idx < 10)
-		{
-			ft_mlx_xpm_file_to_image(game, game->collect.path[idx]);
-			ft_mlx_put_image_to_window(game, x, y);
-			//ft_mlx_xpm_file_to_image(game, "./asset/grass.xpm");
-			//ft_mlx_put_image_to_window(game, x, y);
-			s_idx++;
-		}
-		idx++;
-	}
+	ft_mlx_xpm_file_to_image(game, "./asset/grass.xpm");
+	ft_mlx_put_image_to_window(game, x, y);
+	ft_mlx_xpm_file_to_image(game, game->sprite.path[idx]);
+	ft_mlx_put_image_to_window(game, x, y);
+	idx++;
+	if (idx >= 17)
+		idx = 0;
 	return (0);
 }
 

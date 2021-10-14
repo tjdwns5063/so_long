@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:53:36 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/13 19:27:20 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/14 13:44:48 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,28 @@ typedef struct s_player
 
 typedef struct s_collect
 {
-	char	*path[10];
-	int		**location;
-	int		cnt;
-	int		all_collect_flag;
+	int					x;
+    int					y;
+    struct s_collect	*next;
 }				t_collect;
+
+typedef struct s_sprite
+{
+    char	*path[17];
+}				t_sprite;
 
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
 	int			walk;
+	int			collect_cnt;
+	int			all_collect_flag;
 	t_img		img;
 	t_map		map;
 	t_player	player;
-	t_collect	collect;
+	t_collect	*collect;
+	t_sprite	sprite;
 }				t_game;
 
 int		check_name_extension(char *map_name, t_map *map);
@@ -94,10 +101,9 @@ void	load_map(t_game *game, char *map_name);
 void	clear_map(t_map *map);
 int		ft_move(t_game *game);
 int		ft_draw_player(t_game *game);
-int		ft_draw_sprite(t_game *game);
+int		ft_draw_sprite(t_game *game, int x, int y);
 int		ft_draw(t_game *game);
 int		ft_key_press(int keycode, t_game *game);
-void	ft_check_location(t_game *game);
 void	set_player_location(t_game *game);
 int		open_map(char *map_name);
 void	init_game(t_game *game);
@@ -106,8 +112,13 @@ void	init_player(t_player *player);
 void	ft_mlx_new_window(t_game *game, int x, int y);
 void	ft_mlx_xpm_file_to_image(t_game *game, char *path);
 void	ft_mlx_put_image_to_window(t_game *game, int x, int y);
-void	ft_cnt_collectible(t_game *game);
+int		ft_iter_collect(t_game *game);
+void	ft_find_collectible(t_game *game);
 void	ft_get_collect(t_game *game);
 void	ft_escape(t_game *game);
+t_collect	*so_lstnew(int x, int y);
+t_collect	*so_lstfind(t_collect **lst, int x, int y);
+void	so_clear(t_collect **lst, t_collect *target);
+int		so_lstsize(t_collect *lst);
 
 #endif
