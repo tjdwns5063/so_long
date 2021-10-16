@@ -6,13 +6,32 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:04:49 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 21:15:00 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/16 20:19:24 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
 
-void	ft_find_collectible(t_game *game)
+void	ft_fill_collect_lst(t_game *game, int x, int y)
+{
+	t_collect	*new;
+
+	if (so_lstfind(game->collect, x, y) == 0)
+	{
+		new = so_lstnew(x, y);
+		if (!new)
+		{
+			so_lst_all_clear(&game->collect);
+			printf("Error!\nMalloc Error!\n");
+			exit(0);
+		}
+		new->next = game->collect;
+		game->collect = new;
+	}
+	game->collect_cnt++;
+}
+
+void	ft_find_collect(t_game *game)
 {
 	int	x;
 	int	y;
@@ -24,10 +43,7 @@ void	ft_find_collectible(t_game *game)
 		while (x < game->map.col)
 		{
 			if (game->map.map[y][x] == 'C')
-			{
-				so_lstfind(&game->collect, x, y);
-				game->collect_cnt++;
-			}
+				ft_fill_collect_lst(game, x, y);
 			x++;
 		}
 		y++;
@@ -36,39 +52,30 @@ void	ft_find_collectible(t_game *game)
 
 int	ft_iter_collect(t_game *game)
 {
-	int	x_pos;
-	int	y_pos;
-	t_collect	*head;
-	static int	cnt;
-	static t_collect	*lst;
+	t_collect	*lst;
 
 	if (!game->collect)
 		return (0);
-	head = game->collect;
-	if (!lst)
-		lst = head;
-	x_pos = lst->x;
-	y_pos = lst->y;
-	printf("x: %d y: %d next: %p\n", lst->x, lst->y, lst->next);
-	ft_draw_sprite(game, x_pos, y_pos);
-	lst = lst->next;
-	cnt++;
-	if (cnt >= so_lstsize(head))
-		cnt = 0;
+	lst = game->collect;
+	while (lst)
+	{
+		ft_draw_sprite(game, lst->x, lst->y);
+		lst = lst->next;
+	}
 	return (0);
 }
 
 void	ft_get_collect(t_game *game)
 {
-	t_collect *tmp;
+	t_collect	*tmp;
 
 	if (!game->collect)
 		return ;
 	if (game->map.map[game->player.y][game->player.x] == 'C')
 	{
 		game->map.map[game->player.y][game->player.x] = 'G';
-		tmp = so_lstfind(&game->collect, game->player.x, game->player.y);
-		so_clear(&game->collect, tmp);
+		tmp = so_lstfind(game->collect, game->player.x, game->player.y);
+		tmp->get = 1;
 		game->collect_cnt--;
 	}
 	if (game->collect_cnt == 0)
@@ -77,9 +84,10 @@ void	ft_get_collect(t_game *game)
 
 void	ft_escape(t_game *game)
 {
-	if (game->all_collect_flag == 1)
+	if (game->all_collect_flag == 1 && \
+	game->map.map[game->player.y][game->player.x] == 'E')
 	{
-		if (game->map.map[game->player.y][game->player.x] == 'E')
-			exit(0);
+		so_lst_all_clear(&game->collect);
+		exit(0);
 	}
 }

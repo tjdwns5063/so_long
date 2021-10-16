@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:53:36 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 18:38:34 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/16 19:38:40 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_collect
 {
 	int					x;
     int					y;
+	int					get;
     struct s_collect	*next;
 }				t_collect;
 
@@ -93,10 +94,11 @@ typedef struct s_game
 	t_sprite	sprite;
 }				t_game;
 
-int		check_name_extension(char *map_name, t_map *map);
-int		check_map_is_rec(t_map *map);
-int		check_element(t_map *map);
-int		check_surrounded_wall(t_map *map);
+void		check_name_extension(char *map_name, t_map *map);
+void		check_map_is_rec(t_map *map);
+void		check_element(t_map *map);
+void		check_surrounded_wall(t_map *map);
+void	draw_walk_cnt(t_game *game);
 void	load_map(t_game *game, char *map_name);
 void	clear_map(t_map *map);
 int		ft_move(t_game *game);
@@ -113,12 +115,15 @@ void	ft_mlx_new_window(t_game *game, int x, int y);
 void	ft_mlx_xpm_file_to_image(t_game *game, char *path);
 void	ft_mlx_put_image_to_window(t_game *game, int x, int y);
 int		ft_iter_collect(t_game *game);
-void	ft_find_collectible(t_game *game);
+void	ft_find_collect(t_game *game);
 void	ft_get_collect(t_game *game);
 void	ft_escape(t_game *game);
 t_collect	*so_lstnew(int x, int y);
-t_collect	*so_lstfind(t_collect **lst, int x, int y);
-void	so_clear(t_collect **lst, t_collect *target);
+t_collect	*so_lstfind(t_collect *lst, int x, int y);
+void	check_element_in_map(t_map *map, char word);
+int		check_map_is_surrounded(int row, int col, t_map *map);
+void	so_lst_all_clear(t_collect **lst);
+void	so_lst_target_clear(t_collect **lst, t_collect *target);
 int		so_lstsize(t_collect *lst);
 
 #endif

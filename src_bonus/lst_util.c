@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:36:01 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 21:14:58 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/16 20:19:41 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,26 @@ t_collect	*so_lstnew(int x, int y)
 		return (0);
 	lst->x = x;
 	lst->y = y;
+	lst->get = 0;
 	lst->next = 0;
 	return (lst);
 }
 
-t_collect	*so_lstfind(t_collect **lst, int x, int y)
+t_collect	*so_lstfind(t_collect *lst, int x, int y)
 {
 	t_collect	*tmp;
-	t_collect	*new;
 
-	tmp = *lst;
+	tmp = lst;
 	while (tmp)
 	{
 		if (tmp->x == x && tmp->y == y)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	new = so_lstnew(x, y);
-	if (!new)
-		return (0);
-	new->next = *lst;
-	*lst = new;
-	return (new);
+	return (0);
 }
 
-void	so_clear(t_collect **lst, t_collect *target)
+void	so_lst_target_clear(t_collect **lst, t_collect *target)
 {
 	t_collect	*current;
 
@@ -61,6 +56,20 @@ void	so_clear(t_collect **lst, t_collect *target)
 	current->next = target->next;
 	free(target);
 	return ;
+}
+
+void	so_lst_all_clear(t_collect **lst)
+{
+	t_collect	*curr;
+	t_collect	*prev;
+
+	curr = *lst;
+	while (curr)
+	{
+		prev = curr;
+		curr = curr->next;
+		free(prev);
+	}
 }
 
 int	so_lstsize(t_collect *lst)

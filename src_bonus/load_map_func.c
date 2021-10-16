@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 13:05:01 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/16 19:31:22 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/16 17:38:20 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	make_map(t_map *map, int fd)
 	idx = 0;
 	map->row = get_row(fd);
 	map->map = (char **)malloc(sizeof(char *) * (map->row + 1));
+	close(fd);
 	fd = open_map(map->map_name);
 	if (!map->map)
 	{

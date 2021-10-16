@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:24:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 18:55:55 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/16 19:51:45 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ void	set_img(t_game *game, char spcifir)
 	else
 		game->img.path = "./asset/grass.xpm";
 	ft_mlx_xpm_file_to_image(game, game->img.path);
+}
+
+void	draw_walk_cnt(t_game *game)
+{
+	char	*walk_cnt;
+
+	walk_cnt = ft_itoa(game->walk);
+	ft_mlx_xpm_file_to_image(game, "./asset/box.xpm");
+	ft_mlx_put_image_to_window(game, 0, 0);
+	mlx_string_put(game->mlx, game->win, 4, 32, 0x00000000, "walk:");
+	mlx_string_put(game->mlx, game->win, 37, 32, 0x00000000, walk_cnt);
+	free(walk_cnt);
 }
 
 int	ft_draw(t_game *game)
@@ -42,22 +54,25 @@ int	ft_draw(t_game *game)
 		}
 		y++;
 	}
-	ft_mlx_xpm_file_to_image(game, "./asset/man_d0.xpm");
-	ft_mlx_put_image_to_window(game, game->player.x, game->player.y);
 	return (0);
 }
 
 int	ft_draw_sprite(t_game *game, int x, int y)
 {
-	static int	idx;
+	static int	cnt;
+	t_collect	*lst;
 
-	ft_mlx_xpm_file_to_image(game, "./asset/grass.xpm");
-	ft_mlx_put_image_to_window(game, x, y);
-	ft_mlx_xpm_file_to_image(game, game->sprite.path[idx]);
-	ft_mlx_put_image_to_window(game, x, y);
-	idx++;
-	if (idx >= 16)
-		idx = 0;
+	lst = so_lstfind(game->collect, x, y);
+	if (lst->get == 0)
+	{
+		ft_mlx_xpm_file_to_image(game, "./asset/grass.xpm");
+		ft_mlx_put_image_to_window(game, x, y);
+		ft_mlx_xpm_file_to_image(game, game->sprite.path[cnt / 10]);
+		ft_mlx_put_image_to_window(game, x, y);
+	}
+	cnt++;
+	if (cnt >= 170)
+		cnt = 0;
 	return (0);
 }
 
@@ -75,12 +90,6 @@ int	ft_draw_player(t_game *game)
 	{
 		set_img(game, game->map.map[game->player.ex_y][game->player.ex_x]);
 		ft_mlx_put_image_to_window(game, game->player.ex_x, game->player.ex_y);
-		if (game->map.map[game->player.ex_y][game->player.ex_x] == 'C')
-		{
-			ft_mlx_xpm_file_to_image(game, "./asset/grass.xpm");
-			ft_mlx_put_image_to_window(\
-			game, game->player.ex_x, game->player.ex_y);
-		}
 	}
 	return (0);
 }

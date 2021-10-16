@@ -6,11 +6,11 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 14:52:06 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 15:50:34 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/16 20:17:06 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long_bonus.h"
+#include "so_long.h"
 
 void	ft_count_move(t_game *game, int dir_x, int dir_y)
 {
