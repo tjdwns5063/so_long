@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:04:49 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/14 15:30:49 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 17:23:31 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ void	ft_escape(t_game *game)
 	if (game->collect.all_collect_flag == 1)
 	{
 		if (game->map.map[game->player.y][game->player.x] == 'E')
+		{
+			printf("You win!\n");
+			mlx_destroy_window(game->mlx, game->win);
+			clear_map(&game->map);
 			exit(0);
+		}
 	}
 }

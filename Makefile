@@ -17,7 +17,7 @@ SRC_DIR = ./src/
 SRC_NAME = so_long.c load_map_func_util.c load_map_func.c\
 	player_func.c draw_func.c check_map_func.c\
 	get_next_line.c get_next_line_utils.c check_map_func_util.c\
-	init_func.c collect_func.c mlx_util.c\
+	init_func.c collect_func.c mlx_util.c
 SRC = $(addprefix $(SRC_DIR),$(SRC_NAME))
 OBJ = $(SRC:.c=.o)
 
