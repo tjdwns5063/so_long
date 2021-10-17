@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 18:04:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/16 17:53:57 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 13:30:07 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ void	init_sprite(t_sprite *sprite)
 	sprite->path[16] = "./asset/apple_16.xpm";
 }
 
+void	init_enemy(t_enemy *enemy)
+{
+	enemy->x = 0;
+	enemy->y = 0;
+	enemy->ex_x = 0;
+	enemy->ex_y = 0;
+}
+
 void	init_game(t_game *game)
 {
 	t_map	map;
@@ -63,5 +71,6 @@ void	init_game(t_game *game)
 	game->walk = 0;
 	game->all_collect_flag = 0;
 	init_player(&game->player);
+	init_enemy(&game->enemy);
 	init_sprite(&game->sprite);
 }

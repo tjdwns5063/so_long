@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 12:42:02 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/16 19:51:42 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 15:23:25 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,23 @@ static int	ft_close(t_game *game)
 	return (0);
 }
 
+static void	ft_exit(t_game *game)
+{
+	if (ft_enemy_contact(game) || ft_escape(game))
+		exit(0);
+	return ;
+}
+
 static int	loop_set(t_game *game)
 {
 	draw_walk_cnt(game);
 	ft_move(game);
+	ft_enemy_move(game);
 	ft_draw_player(game);
+	ft_draw_enemy(game);
 	ft_get_collect(game);
 	ft_iter_collect(game);
-	ft_escape(game);
+	ft_exit(game);
 	init_player(&game->player);
 	return (0);
 }
@@ -44,6 +53,8 @@ int	main(int ac, char **av)
 	load_map(&game, av[1]);
 	init_game(&game);
 	set_player_location(&game);
+	set_enemy_location(&game);
+	printf("x: %d y: %d\n", game.enemy.x, game.enemy.y);
 	ft_find_collect(&game);
 	ft_draw(&game);
 	mlx_hook(game.win, RED_CROSS, 0, ft_close, &game);

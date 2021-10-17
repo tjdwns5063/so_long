@@ -6,22 +6,11 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:24:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/16 19:51:45 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 15:18:34 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-
-void	set_img(t_game *game, char spcifir)
-{
-	if (spcifir == '1')
-		game->img.path = "./asset/box.xpm";
-	else if (spcifir == 'E')
-		game->img.path = "./asset/escape.xpm";
-	else
-		game->img.path = "./asset/grass.xpm";
-	ft_mlx_xpm_file_to_image(game, game->img.path);
-}
 
 void	draw_walk_cnt(t_game *game)
 {
@@ -90,6 +79,19 @@ int	ft_draw_player(t_game *game)
 	{
 		set_img(game, game->map.map[game->player.ex_y][game->player.ex_x]);
 		ft_mlx_put_image_to_window(game, game->player.ex_x, game->player.ex_y);
+	}
+	return (0);
+}
+
+int	ft_draw_enemy(t_game *game)
+{
+	ft_mlx_xpm_file_to_image(game, "./asset/enemy.xpm");
+	ft_mlx_put_image_to_window(game, game->enemy.x, game->enemy.y);
+	if (game->enemy.x != game->enemy.ex_x || \
+	game->enemy.y != game->enemy.ex_y)
+	{
+		set_img(game, game->map.map[game->enemy.ex_y][game->enemy.ex_x]);
+		ft_mlx_put_image_to_window(game, game->enemy.ex_x, game->enemy.ex_y);
 	}
 	return (0);
 }

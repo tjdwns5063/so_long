@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 16:04:49 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/16 20:19:24 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 15:55:01 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,13 @@ void	ft_get_collect(t_game *game)
 		game->all_collect_flag = 1;
 }
 
-void	ft_escape(t_game *game)
+int	ft_escape(t_game *game)
 {
 	if (game->all_collect_flag == 1 && \
 	game->map.map[game->player.y][game->player.x] == 'E')
 	{
 		so_lst_all_clear(&game->collect);
-		exit(0);
+		return (1);
 	}
+	return (0);
 }

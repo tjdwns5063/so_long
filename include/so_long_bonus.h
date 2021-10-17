@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:53:36 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/16 19:38:40 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 15:24:06 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,19 @@ typedef struct s_player
 	int		ex_x;
 	int		y;
 	int		ex_y;
-	char	*ex_img;
 	int		up;
 	int		down;
 	int		left;
 	int		right;
 }				t_player;
+
+typedef struct s_enemy
+{
+	int		x;
+	int		ex_x;
+	int		y;
+	int		ex_y;
+}				t_enemy;
 
 typedef struct s_collect
 {
@@ -90,6 +97,7 @@ typedef struct s_game
 	t_img		img;
 	t_map		map;
 	t_player	player;
+	t_enemy		enemy;
 	t_collect	*collect;
 	t_sprite	sprite;
 }				t_game;
@@ -102,7 +110,11 @@ void	draw_walk_cnt(t_game *game);
 void	load_map(t_game *game, char *map_name);
 void	clear_map(t_map *map);
 int		ft_move(t_game *game);
+void	ft_enemy_move(t_game *game);
+void	set_img(t_game *game, char spcifir);
 int		ft_draw_player(t_game *game);
+int		ft_draw_enemy(t_game *game);
+int		ft_enemy_contact(t_game *game);
 int		ft_draw_sprite(t_game *game, int x, int y);
 int		ft_draw(t_game *game);
 int		ft_key_press(int keycode, t_game *game);
@@ -117,7 +129,7 @@ void	ft_mlx_put_image_to_window(t_game *game, int x, int y);
 int		ft_iter_collect(t_game *game);
 void	ft_find_collect(t_game *game);
 void	ft_get_collect(t_game *game);
-void	ft_escape(t_game *game);
+int		ft_escape(t_game *game);
 t_collect	*so_lstnew(int x, int y);
 t_collect	*so_lstfind(t_collect *lst, int x, int y);
 void	check_element_in_map(t_map *map, char word);
@@ -125,5 +137,6 @@ int		check_map_is_surrounded(int row, int col, t_map *map);
 void	so_lst_all_clear(t_collect **lst);
 void	so_lst_target_clear(t_collect **lst, t_collect *target);
 int		so_lstsize(t_collect *lst);
+void	set_enemy_location(t_game *game);
 
 #endif
