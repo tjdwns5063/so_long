@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/02 12:42:02 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/17 15:23:25 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 17:00:03 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	ft_close(t_game *game)
 {
 	mlx_destroy_window(game->mlx, game->win);
 	clear_map(&game->map);
+	so_lst_all_clear(&game->collect);
 	exit(0);
 	return (0);
 }
@@ -23,21 +24,19 @@ static int	ft_close(t_game *game)
 static void	ft_exit(t_game *game)
 {
 	if (ft_enemy_contact(game) || ft_escape(game))
+	{
+		clear_map(&game->map);
+		so_lst_all_clear(&game->collect);
 		exit(0);
+	}
 	return ;
 }
 
 static int	loop_set(t_game *game)
 {
-	draw_walk_cnt(game);
-	ft_move(game);
-	ft_enemy_move(game);
-	ft_draw_player(game);
-	ft_draw_enemy(game);
-	ft_get_collect(game);
-	ft_iter_collect(game);
+	move_loop(game);
+	draw_loop(game);
 	ft_exit(game);
-	init_player(&game->player);
 	return (0);
 }
 
@@ -54,7 +53,6 @@ int	main(int ac, char **av)
 	init_game(&game);
 	set_player_location(&game);
 	set_enemy_location(&game);
-	printf("x: %d y: %d\n", game.enemy.x, game.enemy.y);
 	ft_find_collect(&game);
 	ft_draw(&game);
 	mlx_hook(game.win, RED_CROSS, 0, ft_close, &game);

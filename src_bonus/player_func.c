@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 14:52:06 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/17 15:20:11 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 17:01:04 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	ft_key_press(int keycode, t_game *game)
 	if (keycode == ESC)
 	{
 		mlx_destroy_window(game->mlx, game->win);
+		so_lst_all_clear(&game->collect);
 		clear_map(&game->map);
 		exit(0);
 	}

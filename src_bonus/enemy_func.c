@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/17 13:17:40 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/17 15:55:12 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/17 16:57:50 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,34 @@ void	ft_enemy_move(t_game *game)
 	game->enemy.ex_x = game->enemy.x;
 	game->enemy.ex_y = game->enemy.y;
 	cnt++;
-	if (flag == 0 && cnt == 75 && \
-	game->map.map[game->enemy.y + 1][game->enemy.x] != '1')
+	if (flag == 0 && cnt == 50 && \
+	game->map.map[game->enemy.y][game->enemy.x + 1] != '1' && \
+	game->map.map[game->enemy.y][game->enemy.x + 1] != 'C')
 	{
-		game->enemy.y++;
+		game->enemy.x++;
 		cnt = 0;
 	}
-	else if (flag == 1 && cnt == 75 && \
-	game->map.map[game->enemy.y - 1][game->enemy.x] != '1')
+	else if (flag == 1 && cnt == 50 && \
+	game->map.map[game->enemy.y][game->enemy.x - 1] != '1' && \
+	game->map.map[game->enemy.y][game->enemy.x - 1] != 'C')
 	{
-		game->enemy.y--;
+		game->enemy.x--;
 		cnt = 0;
 	}
-	if (game->map.map[game->enemy.y + 1][game->enemy.x] == '1')
+	if (game->map.map[game->enemy.y][game->enemy.x + 1] == '1' || \
+	game->map.map[game->enemy.y][game->enemy.x + 1] == 'C')
 		flag = 1;
-	else if (game->map.map[game->enemy.y - 1][game->enemy.x] == '1')
+	else if (game->map.map[game->enemy.y][game->enemy.x - 1] == '1' || \
+	game->map.map[game->enemy.y][game->enemy.x - 1] == 'C')
 		flag = 0;
 }
 
 int	ft_enemy_contact(t_game *game)
 {
 	if (game->enemy.y == game->player.y && game->enemy.x == game->player.x)
-		return (1);
+	{
+		printf("you lose!\n");
+			return (1);
+	}
 	return (0);
 }
