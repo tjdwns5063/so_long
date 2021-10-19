@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/13 16:53:36 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/17 16:44:44 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/19 10:58:08 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ void		check_surrounded_wall(t_map *map);
 void		draw_walk_cnt(t_game *game);
 void		load_map(t_game *game, char *map_name);
 void		clear_map(t_map *map);
+void		malloc_error(t_map *map);
 int			ft_move(t_game *game);
 void		ft_enemy_move(t_game *game);
 void		set_img(t_game *game, char spcifir);

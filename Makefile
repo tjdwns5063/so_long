@@ -23,12 +23,12 @@ OBJ = $(SRC:.c=.o)
 
 BONUS = so_long_bonus
 BONUS_SRC_DIR = ./src_bonus/
-BONUS_SRC_NAME = so_long.c load_map_func_util.c load_map_func.c\
-	player_func.c draw_func.c check_map_func.c\
-	get_next_line.c get_next_line_utils.c\
-	init_func.c collect_func.c mlx_util.c\
-	lst_util.c check_map_func_util.c enemy_func.c\
-	draw_func_util.c main_func.c
+BONUS_SRC_NAME = so_long_bonus.c load_map_func_util_bonus.c load_map_func_bonus.c\
+	player_func_bonus.c draw_func_bonus.c check_map_func_bonus.c\
+	get_next_line_bonus.c get_next_line_utils_bonus.c\
+	init_func_bonus.c collect_func_bonus.c mlx_util_bonus.c\
+	lst_util_bonus.c check_map_func_util_bonus.c enemy_func_bonus.c\
+	draw_func_util_bonus.c main_func_bonus.c
 BONUS_SRC = $(addprefix $(BONUS_SRC_DIR),$(BONUS_SRC_NAME))
 BONUS_OBJ = $(BONUS_SRC:.c=.o)
 

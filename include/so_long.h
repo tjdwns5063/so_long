@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:58:29 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/17 16:09:54 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/19 10:50:38 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void		check_element_in_map(t_map *map, char word);
 int			check_map_is_surrounded(int row, int col, t_map *map);
 void		load_map(t_game *game, char *map_name);
 void		clear_map(t_map *map);
+void		malloc_error(t_map *map);
 int			ft_move(t_game *game);
 int			ft_iter_draw(t_game *game);
 int			ft_draw(t_game *game);
