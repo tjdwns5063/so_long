@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 16:19:03 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/16 20:09:51 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/25 15:07:20 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	check_surrounded_wall(t_map *map)
 			word = map->map[row][col];
 			if (check_map_is_surrounded(row, col, map) == 0)
 			{
-				printf("Error!\nMap is not Surroned by Wall");
+				printf("Error!\nMap is not Surroned by Wall\n");
 				clear_map(map);
 				exit(0);
 			}

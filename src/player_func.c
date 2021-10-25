@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 14:52:06 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/19 11:54:54 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/21 11:23:24 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_count_move(t_game *game, int dir_x, int dir_y)
 		game->player.x += dir_x;
 	else if (dir_y != 0)
 		game->player.y += dir_y;
-	game->walk++
+	game->walk++;
 	printf("Walk Count: %d\n", game->walk);
 }
 

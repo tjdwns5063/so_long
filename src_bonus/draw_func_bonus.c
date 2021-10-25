@@ -6,7 +6,7 @@
 /*   By: seongjki <seongjk@student.42seoul.k>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/03 17:24:34 by seongjki          #+#    #+#             */
-/*   Updated: 2021/10/17 16:31:18 by seongjki         ###   ########.fr       */
+/*   Updated: 2021/10/21 11:39:23 by seongjki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ int	ft_draw_sprite(t_game *game, int x, int y)
 {
 	static int	cnt;
 	t_collect	*lst;
+	int			size;
 
 	lst = so_lstfind(game->collect, x, y);
+	size = so_lstsize(game->collect);
 	if (lst->get == 0)
 	{
 		ft_mlx_xpm_file_to_image(game, "./asset/grass.xpm");
@@ -59,7 +61,7 @@ int	ft_draw_sprite(t_game *game, int x, int y)
 		ft_mlx_xpm_file_to_image(game, game->sprite.path[cnt / 10]);
 		ft_mlx_put_image_to_window(game, x, y);
 	}
-	cnt++;
+	cnt += (5 / size);
 	if (cnt >= 170)
 		cnt = 0;
 	return (0);
